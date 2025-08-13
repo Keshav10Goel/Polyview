@@ -399,7 +399,7 @@
         <div class="pricing-cards">
             <div class="pricing-card">
                 <h3>Starter</h3>
-                <div class="price">$29<span>/mo</span></div>
+                <div class="price">₹2,099/mo<span>/mo</span></div>
                 <ul>
                     <li>10 analyses/month</li>
                     <li>Basic reports</li>
@@ -413,7 +413,7 @@
             <div class="pricing-card" style="border: 2px solid var(--primary);">
                 <div class="popular-badge">MOST POPULAR</div>
                 <h3>Professional</h3>
-                <div class="price">$99<span>/mo</span></div>
+                <div class="price">₹ 8,099/mo<span>/mo</span></div>
                 <ul>
                     <li>50 analyses/month</li>
                     <li>Advanced reports</li>
@@ -437,7 +437,7 @@
                     <li>API access</li>
                     <li>On-premise deployment</li>
                 </ul>
-                <button class="btn btn-outline">Contact Sales</button>
+                <button class="btn btn-outline"onclick="redirectToContact()">Contact Sales</button>
             </div>
         </div>
         
@@ -464,4 +464,9 @@
         </div>
     </div>
 </body>
+    <script>
+        function redirectToContact() {
+            window.location.href = 'contact.html';
+        }
+</script>
 </html>
