@@ -1,0 +1,467 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - PolyView</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .pricing-section {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        
+        .pricing-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .pricing-card h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-card li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">PolyView</div>
+        <div class="nav-links">
+            <a href="features.html">Features</a>
+            <a href="#demo">Demo</a>
+            <a href="pricing.html" style="font-weight: bold;">Pricing</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-buttons">
+            <a href="login.html" class="btn btn-outline">Sign In</a>
+            <a href="signup.html" class="btn btn-primary">Get Started</a>
+        </div>
+    </nav>
+
+    <div class="pricing-section">
+        <h1>Choose Your Plan</h1>
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>Starter</h3>
+                <div class="price">$29/mo</div>
+                <ul>
+                    <li>10 analyses/month</li>
+                    <li>Basic reports</li>
+                    <li>Email support</li>
+                </ul>
+                <button class="btn btn-outline">Get Started</button>
+            </div>
+            
+            <div class="pricing-card">
+                <h3>Professional</h3>
+                <div class="price">$99/mo</div>
+                <ul>
+                    <li>50 analyses/month</li>
+                    <li>Advanced reports</li>
+                    <li>Priority support</li>
+                </ul>
+                <button class="btn btn-primary">Get Started</button>
+            </div>
+            
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <div class="price">Custom</div>
+                <ul>
+                    <li>Unlimited analyses</li>
+                    <li>Full features</li>
+                    <li>24/7 dedicated support</li>
+                </ul>
+                <button class="btn btn-outline">Contact Sales</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="x-icon" href="Icon.png">
+    <title>Pricing - PolyView</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        
+        .pricing-section {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .pricing-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s;
+            position: relative;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .pricing-card h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: #64748b;
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .pricing-card li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .pricing-card li:before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .faq-section {
+            background: #f1f5f9;
+            padding: 3rem;
+            border-radius: 8px;
+            margin-top: 3rem;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .faq-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .faq-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">PolyView</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="permission.html">Demo</a>
+            <a href="pricing.html" style="font-weight: bold;">Pricing</a>
+            <a href="contact.html">Contact</a>
+            <a href="dashboard.html">Dashboard</a>
+        </div>
+        <div class="nav-buttons">
+            <a href="login.html" class="btn btn-outline" style="text-decoration: none;">Sign In</a>
+            <a href="signup.html" class="btn btn-primary" style="text-decoration: none;">Get Started</a>
+        </div>
+    </nav>
+
+    <div class="pricing-section">
+        <div class="section-title">
+            <h1>Choose Your Plan</h1>
+            <p>Flexible options for individuals, teams, and enterprises</p>
+        </div>
+        
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>Starter</h3>
+                <div class="price">$29<span>/mo</span></div>
+                <ul>
+                    <li>10 analyses/month</li>
+                    <li>Basic reports</li>
+                    <li>Email support</li>
+                    <li>1 user account</li>
+                    <li>Limited integrations</li>
+                </ul>
+                <button class="btn btn-outline">Get Started</button>
+            </div>
+            
+            <div class="pricing-card" style="border: 2px solid var(--primary);">
+                <div class="popular-badge">MOST POPULAR</div>
+                <h3>Professional</h3>
+                <div class="price">$99<span>/mo</span></div>
+                <ul>
+                    <li>50 analyses/month</li>
+                    <li>Advanced reports</li>
+                    <li>Priority support</li>
+                    <li>5 user accounts</li>
+                    <li>All integrations</li>
+                    <li>Behavioral baselines</li>
+                </ul>
+                <button class="btn btn-primary">Get Started</button>
+            </div>
+            
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <div class="price">Custom</div>
+                <ul>
+                    <li>Unlimited analyses</li>
+                    <li>Full features</li>
+                    <li>24/7 dedicated support</li>
+                    <li>Unlimited users</li>
+                    <li>Custom integrations</li>
+                    <li>API access</li>
+                    <li>On-premise deployment</li>
+                </ul>
+                <button class="btn btn-outline">Contact Sales</button>
+            </div>
+        </div>
+        
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>What counts as an "analysis"?</h4>
+                    <p>Each video session (live or recorded) counts as one analysis, regardless of duration.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Can I upgrade my plan later?</h4>
+                    <p>Yes, you can upgrade at any time. We'll prorate the difference.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Is there a free trial?</h4>
+                    <p>Yes, all plans include a 14-day free trial with full features.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>How is my data protected?</h4>
+                    <p>All data is encrypted end-to-end. We never store videos without explicit consent.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

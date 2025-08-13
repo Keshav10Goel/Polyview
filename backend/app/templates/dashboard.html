@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="x-icon" href="Icon.png">
+    <title>Dashboard - PolyView</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --sidebar-bg: #1e293b;
+            --sidebar-text: #cbd5e1;
+            --sidebar-active: #2563eb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            padding: 1.5rem 0;
+            height: 100vh;
+            position: fixed;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+        
+        .logo {
+            padding: 0 1.5rem 1.5rem;
+            border-bottom: 1px solid #334155;
+            margin-bottom: 1.5rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .logo i {
+            font-size: 1.8rem;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0 1rem;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            gap: 12px;
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: rgba(37, 99, 235, 0.15);
+            color: white;
+        }
+        
+        .sidebar-menu a.active {
+            border-left: 4px solid var(--primary);
+        }
+        
+        .sidebar-menu i {
+            width: 24px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 2rem;
+        }
+        
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .welcome h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .welcome p {
+            color: var(--secondary);
+            font-size: 0.95rem;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Action Cards */
+        .action-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.8rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        
+        .action-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .action-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+        
+        .action-card p {
+            color: var(--secondary);
+            font-size: 0.95rem;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .stat-card h3 {
+            font-size: 1rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        .trend-up {
+            color: var(--success);
+        }
+        
+        .trend-down {
+            color: var(--danger);
+        }
+        
+        .stat-meta {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* Recent Sessions */
+        .recent-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .recent-sessions, .system-status {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-header h2 {
+            font-size: 1.4rem;
+            color: var(--dark);
+        }
+        
+        .session-list {
+            list-style: none;
+        }
+        
+        .session-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .session-item:last-child {
+            border-bottom: none;
+        }
+        
+        .session-initials {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #dbeafe;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        
+        .session-info {
+            flex: 1;
+        }
+        
+        .session-info h4 {
+            margin-bottom: 0.2rem;
+        }
+        
+        .session-info p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        .session-progress {
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
+        
+        .progress-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) var(--progress), #e2e8f0 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .progress-value {
+            position: absolute;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        /* New Session Card */
+        .new-session {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .new-session:hover {
+            transform: translateY(-3px);
+        }
+        
+        .new-session i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .new-session h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* System Status */
+        .status-list {
+            list-style: none;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .status-item:last-child {
+            border-bottom: none;
+        }
+        
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: #d1fae5;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        
+        .status-icon.warning {
+            background: #fef3c7;
+            color: var(--warning);
+        }
+        
+        .status-info {
+            flex: 1;
+        }
+        
+        .status-info h4 {
+            margin-bottom: 0.2rem;
+        }
+        
+        .status-info p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        .status-badge {
+            background: #d1fae5;
+            color: var(--success);
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status-badge.warning {
+            background: #fef3c7;
+            color: var(--warning);
+        }
+        
+        /* Quick Scan */
+        .quick-scan {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .scan-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: #f0f9ff;
+            border: 8px solid #dbeafe;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .scan-circle::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 8px solid transparent;
+            border-top-color: var(--primary);
+            animation: scan 2s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .scan-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .scan-label {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        .scan-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .scan-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dashboard-grid, .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .recent-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+            
+            .logo h1 span, .sidebar-menu a span {
+                display: none;
+            }
+            
+            .logo {
+                padding: 0.5rem;
+                text-align: center;
+            }
+            
+            .logo i {
+                font-size: 1.5rem;
+                margin: 0;
+            }
+            
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 1rem 0;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+            
+            .dashboard-grid, .stats-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h1><img src="Icon.png" alt="Polyview" height="50px" style="border-radius: 10%;" onclick="redirectToHome()"></i> <span onclick="redirectToHome()">PolyView</span></h1>
+        </div>
+        <ul class="sidebar-menu">
+            <li><div><a href="index.html"><i class="fas fa-home" ></i> <span>Home</span></a></li></div>
+            <li><a href="#" class="active"><i class="fa-solid fa-chart-line"></i> <span>Dashboard</span></a></li>
+            <li><a href="#"><i class="fas fa-video"></i> <span>Interviews</span></a></li>
+            <li><a href="#"><i class="fas fa-chart-bar"></i> <span>Analytics</span></a></li>
+            <li><a href="#"><i class="fas fa-file-alt"></i> <span>Reports</span></a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+            <li><a href="#"><i class="fas fa-question-circle"></i> <span>Help</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <div class="welcome">
+                <h1>Welcome back, Kashish</h1>
+                <p>Your truth detection dashboard • Last login: Today at 9:32 AM</p>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">K</div>
+                <div>
+                    <h4>Kashish</h4>
+                    <p>HR</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Cards -->
+        <div class="dashboard-grid">
+            <div class="action-card" onclick="redirectToPermission()">
+                <i class="fas fa-play-circle"></i>
+                <h3>Start Interview</h3>
+                <p>Begin new session</p>
+            </div>
+            <div class="action-card" onclick="viewAnalytics()">
+                <i class="fas fa-chart-line"></i>
+                <h3>View Analytics</h3>
+                <p>Detailed insights</p>
+            </div>
+            <div class="action-card" onclick="generateReport()">
+                <i class="fas fa-file-export"></i>
+                <h3>Generate Report</h3>
+                <p>Export findings</p>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <h3>Total Sessions</h3>
+                <div class="stat-value">94.2%</div>
+                <div class="stat-trend trend-up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>+2.1% improvement</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Flagged Cases</h3>
+                <div class="stat-value">18</div>
+                <div class="stat-meta">Requires review</div>
+            </div>
+            <div class="stat-card">
+                <h3>Active Sessions</h3>
+                <div class="stat-value">3</div>
+                <div class="stat-meta">Currently running</div>
+            </div>
+        </div>
+
+        <!-- Recent Sessions and System Status -->
+        <div class="recent-grid">
+            <!-- Recent Sessions -->
+            <div class="recent-sessions">
+                <div class="section-header">
+                    <h2>Recent Sessions</h2>
+                </div>
+                <ul class="session-list">
+                    <li class="session-item">
+                        <div class="session-initials">AC</div>
+                        <div class="session-info">
+                            <h4>Alok Chauhan</h4>
+                            <p>2 hours ago</p>
+                        </div>
+                        <div class="session-progress">
+                            <div class="progress-circle" style="--progress: 87%"></div>
+                            <div class="progress-value">87%</div>
+                        </div>
+                    </li>
+                    <li class="session-item">
+                        <div class="session-initials">SG</div>
+                        <div class="session-info">
+                            <h4>Sakshi Gupta</h4>
+                            <p>4 hours ago</p>
+                        </div>
+                        <div class="session-progress">
+                            <div class="progress-circle" style="--progress: 45%"></div>
+                            <div class="progress-value">45%</div>
+                        </div>
+                    </li>
+                    <li class="session-item">
+                        <div class="session-initials">AS</div>
+                        <div class="session-info">
+                            <h4>Ashrin Shrivastav</h4>
+                            <p>6 hours ago</p>
+                        </div>
+                        <div class="session-progress">
+                            <div class="progress-circle" style="--progress: 22%"></div>
+                            <div class="progress-value">22%</div>
+                        </div>
+                    </li>
+                    <li class="session-item">
+                        <div class="session-initials">AO</div>
+                        <div class="session-info">
+                            <h4>Ankush Oberoi</h4>
+                            <p>1 day ago</p>
+                        </div>
+                        <div class="session-progress">
+                            <div class="progress-circle" style="--progress: 76%"></div>
+                            <div class="progress-value">76%</div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="new-session" onclick="redirectToPermission()">
+                    <i class="fas fa-plus-circle"></i>
+                    <h3>New Session</h3>
+                    <p>Start a new analysis</p>
+                </div>
+            </div>
+            
+            <!-- System Status -->
+            <div class="system-status">
+                <div class="section-header">
+                    <h2>System Status</h2>
+                </div>
+                <ul class="status-list">
+                    <li class="status-item">
+                        <div class="status-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="status-info">
+                            <h4>Detection Engine</h4>
+                            <p>All Models</p>
+                        </div>
+                        <div class="status-badge">Operational</div>
+                    </li>
+                    <li class="status-item">
+                        <div class="status-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="status-info">
+                            <h4>Database</h4>
+                            <p>Storage & Analytics</p>
+                        </div>
+                        <div class="status-badge">Active</div>
+                    </li>
+                    <li class="status-item">
+                        <div class="status-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="status-info">
+                            <h4>Security</h4>
+                            <p>Encryption & Access</p>
+                        </div>
+                        <div class="status-badge">Encrypted</div>
+                    </li>
+                </ul>
+                
+                <!-- Quick Scan -->
+                <div class="quick-scan">
+                    <div class="scan-circle">
+                        <div class="scan-value">0%</div>
+                        <div class="scan-label">TRUTH</div>
+                    </div>
+                    <button class="scan-btn" onclick="startQuickScan()">Start Quick Scan</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function redirectToHome() {
+            window.location.href = 'index.html';
+        }
+        function redirectToPermission() {
+    // Redirect to permission page
+    window.location.href = 'permission.html';
+    
+    // Optional: You could also pass parameters if needed
+    // window.location.href = 'permission.html?type=new_session';
+}
+        // In dashboard.html
+function initDashboard() {
+    // Get user data (in real app, this would come from your backend)
+    const userData = {
+        name: "Kashish",
+        role: "Lead Analyst",
+        initials: "Ms"
+    };
+    
+    // Set user info
+    document.querySelector('.user-avatar').textContent = userData.initials;
+    document.querySelector('.user-info h4').textContent = userData.name;
+    document.querySelector('.user-info p').textContent = userData.role;
+    
+    // ... rest of the function ...
+}
+// In dashboard.html
+function loadRecentSessions() {
+    // In real app, this would fetch data from your backend
+    const sessions = [
+        { id: 1, name: "Ankush Saxena", time: "2 hours ago", progress: 87 },
+        { id: 2, name: "Ashrin Shrivastav", time: "4 hours ago", progress: 45 },
+        // ... other sessions ...
+    ];
+    
+    const sessionList = document.querySelector('.session-list');
+    sessionList.innerHTML = ''; // Clear existing
+    
+    sessions.forEach(session => {
+        const sessionItem = `
+        <li class="session-item" onclick="viewSession(${session.id})">
+            <div class="session-initials">${getInitials(session.name)}</div>
+            <div class="session-info">
+                <h4>${session.name}</h4>
+                <p>${session.time}</p>
+            </div>
+            <div class="session-progress">
+                <div class="progress-circle" style="--progress: ${session.progress}%"></div>
+                <div class="progress-value">${session.progress}%</div>
+            </div>
+        </li>`;
+        sessionList.innerHTML += sessionItem;
+    });
+}
+
+function getInitials(name) {
+    return name.split(' ').map(n => n[0]).join('');
+}
+
+// Call this in initDashboard()
+// In your login.js or similar
+function onLoginSuccess() {
+    // After successful authentication
+    window.location.href = 'dashboard.html';
+}
+        // In the <script> section of dashboard.html
+function startInterview() {
+    // Redirect to your analysis page
+    window.location.href = 'permission.html';
+}
+
+function viewAnalytics() {
+    // Redirect to analytics page
+    window.location.href = 'analytics.html';
+}
+
+function generateReport() {
+    // Trigger report generation
+    alert('Report generation would connect to your backend');
+    // In real implementation: fetch('/generate-report', { method: 'POST' })
+}
+        // Update last login time
+        function updateLastLogin() {
+            const now = new Date();
+            const options = { 
+                hour: 'numeric', 
+                minute: 'numeric',
+                hour12: true
+            };
+            const timeString = now.toLocaleTimeString('en-US', options);
+            document.querySelector('.welcome p').textContent = 
+                `Your truth detection dashboard • Last login: Today at ${timeString}`;
+        }
+        
+        // Initialize the dashboard
+        function initDashboard() {
+            updateLastLogin();
+            
+            // Set current date in header
+            const today = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.querySelector('.welcome h1').textContent = 
+                `Welcome back, Kashish • ${today.toLocaleDateString('en-US', options)}`;
+        }
+        
+        // Action functions
+        function startInterview() {
+            alert('Starting new interview session...');
+            // In a real app, this would navigate to the interview page
+        }
+        
+        function viewAnalytics() {
+            alert('Opening analytics dashboard...');
+        }
+        
+        function generateReport() {
+            alert('Generating report...');
+        }
+        
+        function startQuickScan() {
+            const scanValue = document.querySelector('.scan-value');
+            const scanCircle = document.querySelector('.scan-circle');
+            const scanBtn = document.querySelector('.scan-btn');
+            
+            scanBtn.disabled = true;
+            scanBtn.textContent = 'Scanning...';
+            scanCircle.style.border = '8px solid #dbeafe';
+            scanCircle.style.animation = 'scan 1s linear infinite';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 5) + 1;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    scanBtn.disabled = false;
+                    scanBtn.textContent = 'Scan Complete';
+                    scanCircle.style.animation = 'none';
+                    
+                    // Change color based on result
+                    if (progress > 80) {
+                        scanValue.style.color = '#10b981'; // Green for high truth
+                    } else if (progress > 50) {
+                        scanValue.style.color = '#f59e0b'; // Yellow for medium
+                    } else {
+                        scanValue.style.color = '#ef4444'; // Red for low
+                    }
+                }
+                scanValue.textContent = `${progress}%`;
+            }, 200);
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>

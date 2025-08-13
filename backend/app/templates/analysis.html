@@ -1,0 +1,875 @@
+<!-- <!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>PolyView Analysis</title>
+    <style>
+        /* Add styles from homepage plus */
+        .analysis-container {
+            display: flex;
+            padding: 2rem;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .video-panel {
+            flex: 1;
+            background: #fff;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .analysis-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #2563eb;
+            width: 75%; /* Dynamic value */
+        }
+    </style>
+</head>
+<body>
+    <nav><!-- Same as homepage --></nav>
+
+    <!-- <div class="analysis-container">
+        <div class="video-panel">
+            <h2>Live Analysis</h2>
+            <div style="background: #e2e8f0; height: 400px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎥</div>
+                    <p>Camera feed will appear here</p>
+                    <button class="btn btn-primary" id="startBtn">Start Analysis</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="analysis-panel">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div>Truth Score</div>
+                    <div class="metric-value" id="truthScore">--</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="truthBar"></div>
+                    </div>
+                </div>
+                <!-- Add similar cards for Voice, Micro-exp, Confidence -->
+            <!-- </div>
+            
+            <div style="background: white; border-radius: 8px; padding: 1rem;">
+                <h3>Real-time Transcript</h3>
+                <div id="transcript" style="min-height: 200px; border: 1px solid #e2e8f0; padding: 1rem; margin-top: 1rem; border-radius: 4px;">
+                    Analysis will appear here...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('startBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('startBtn');
+            btn.textContent = 'Analyzing...';
+            btn.disabled = true;
+            
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({video: "sample"})
+                });
+                
+                const data = await response.json();
+                
+                // Update UI with results
+                document.getElementById('truthScore').textContent = data.truth_score;
+                document.getElementById('truthBar').style.width = `${data.truth_score}%`;
+                document.getElementById('transcript').textContent = data.transcript;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Analysis failed');
+            } finally {
+                btn.textContent = 'Start Analysis';
+                btn.disabled = false;
+            }
+        });
+    </script>
+    <!-- Add this to your analysis page -->
+<!-- <div class="upload-section">
+    <h3>Or Upload Pre-recorded Video</h3>
+    <input type="file" id="videoUpload" accept="video/*">
+    <button id="analyzeUpload">Analyze Video</button>
+    <video id="uploadedVideo" controls style="display:none;"></video>
+</div>
+
+<script>
+document.getElementById('analyzeUpload').addEventListener('click', () => {
+    const file = document.getElementById('videoUpload').files[0];
+    if (file) {
+        const videoUrl = URL.createObjectURL(file);
+        const videoElement = document.getElementById('uploadedVideo');
+        videoElement.src = videoUrl;
+        videoElement.style.display = 'block';
+        
+        // Start analysis of uploaded video
+        analyzeUploadedVideo(videoElement);
+    }
+});
+</script>
+<div class="zoom-integration">
+    <h3>Connect to Zoom Meeting</h3>
+    <input type="text" id="zoomMeetingId" placeholder="Meeting ID">
+    <input type="password" id="zoomPassword" placeholder="Password">
+    <button id="connectZoom">Connect</button>
+</div>
+
+<script>
+document.getElementById('connectZoom').addEventListener('click', () => {
+    const meetingId = document.getElementById('zoomMeetingId').value;
+    const password = document.getElementById('zoomPassword').value;
+    
+    // In a real app, you would use Zoom SDK here
+    alert(`Connecting to meeting ${meetingId}... (This would use Zoom SDK in production)`);
+});
+</script>
+</body>
+</html> --> --> --> -->
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>PolyView Analysis</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .analysis-container {
+            display: flex;
+            padding: 2rem;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .video-panel {
+            flex: 1;
+            background: #fff;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .analysis-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #2563eb;
+            width: 75%; /* Dynamic value */
+        }
+        
+        .upload-section {
+            margin-top: 2rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">PolyView</div>
+        <div class="nav-links">
+            <a href="features.html">Features</a>
+            <a href="#demo">Demo</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-buttons">
+            <a href="login.html" class="btn btn-outline">Sign In</a>
+            <a href="signup.html" class="btn btn-primary">Get Started</a>
+        </div>
+    </nav>
+
+    <div class="analysis-container">
+        <div class="video-panel">
+            <h2>Live Analysis</h2>
+            <div style="background: #e2e8f0; height: 400px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎥</div>
+                    <p>Camera feed will appear here</p>
+                    <button class="btn btn-primary" id="startBtn">Start Analysis</button>
+                </div>
+            </div>
+            
+            <div class="upload-section">
+                <h3>Or Upload Pre-recorded Video</h3>
+                <input type="file" id="videoUpload" accept="video/*">
+                <button id="analyzeUpload" class="btn btn-outline">Analyze Video</button>
+                <video id="uploadedVideo" controls style="display:none; width: 100%; margin-top: 1rem;"></video>
+            </div>
+        </div>
+        
+        <div class="analysis-panel">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div>Truth Score</div>
+                    <div class="metric-value" id="truthScore">--</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="truthBar"></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div>Voice Stress</div>
+                    <div class="metric-value" id="voiceScore">--</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="voiceBar"></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div>Micro-expressions</div>
+                    <div class="metric-value" id="microExp">--</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="microBar"></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div>Confidence</div>
+                    <div class="metric-value" id="confidence">--</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="confBar"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: white; border-radius: 8px; padding: 1rem;">
+                <h3>Real-time Transcript</h3>
+                <div id="transcript" style="min-height: 200px; border: 1px solid #e2e8f0; padding: 1rem; margin-top: 1rem; border-radius: 4px;">
+                    Analysis will appear here...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('startBtn').addEventListener('click', async () => {
+            try {
+                // Request camera and microphone access
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: true,
+                    audio: true
+                });
+                
+                // Show camera feed
+                const videoElement = document.createElement('video');
+                videoElement.srcObject = stream;
+                videoElement.autoplay = true;
+                videoElement.style.width = '100%';
+                document.querySelector('.video-panel > div').replaceWith(videoElement);
+                
+                // Start analysis
+                startAnalysis(stream);
+                
+            } catch (error) {
+                alert('Error accessing media devices: ' + error.message);
+            }
+        });
+        
+        document.getElementById('analyzeUpload').addEventListener('click', () => {
+            const file = document.getElementById('videoUpload').files[0];
+            if (file) {
+                const videoUrl = URL.createObjectURL(file);
+                const videoElement = document.getElementById('uploadedVideo');
+                videoElement.src = videoUrl;
+                videoElement.style.display = 'block';
+                
+                // Start analysis of uploaded video
+                analyzeUploadedVideo(videoElement);
+            }
+        });
+        
+        function startAnalysis(stream) {
+            // In a real app, you would analyze the video stream here
+            document.getElementById('truthScore').textContent = '87';
+            document.getElementById('truthBar').style.width = '87%';
+            document.getElementById('transcript').textContent = "This is a sample transcript of the analyzed content";
+        }
+        
+        function analyzeUploadedVideo(video) {
+            // In a real app, you would analyze the uploaded video here
+            document.getElementById('truthScore').textContent = '92';
+            document.getElementById('truthBar').style.width = '92%';
+            document.getElementById('transcript').textContent = "Analysis of uploaded video content...";
+        }
+    </script>
+</body>
+</html>  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="Icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Analysis - PolyView</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        
+        .analysis-container {
+            display: flex;
+            padding: 2rem;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        
+        .video-panel {
+            flex: 1;
+            min-width: 400px;
+            background: #fff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .video-feed {
+            background: #e2e8f0;
+            height: 400px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .video-feed video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-placeholder {
+            text-align: center;
+        }
+        
+        .analysis-panel {
+            flex: 1;
+            min-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .metric-title {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #64748b;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .progress-container {
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 1s ease;
+        }
+        
+        .transcript-panel {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            flex: 1;
+        }
+        
+        .transcript-content {
+            min-height: 200px;
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            overflow-y: auto;
+            max-height: 200px;
+        }
+        
+        .upload-section {
+            margin-top: 1.5rem;
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        
+        @media (max-width: 900px) {
+            .analysis-container {
+                flex-direction: column;
+            }
+            
+            .video-panel, .analysis-panel {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">PolyView</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="features.html">Features</a>
+            <a href="permission.html">Demo</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="contact.html">Contact</a>
+            <a href="dashboard.html">Dashboard</a>
+        </div>
+        <div class="nav-buttons">
+            <a href="login.html" class="btn btn-outline" style="text-decoration: none;">Sign In</a>
+            <a href="signup.html" class="btn btn-primary" style="text-decoration: none;">Get Started</a>
+        </div>
+    </nav>
+
+    <div class="analysis-container">
+        <div class="video-panel">
+            <h2>Live Analysis</h2>
+            <div class="video-feed" id="videoContainer">
+                <div class="video-placeholder">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🎥</div>
+                    <p>Camera feed will appear here</p>
+                    <button class="btn btn-primary" id="startBtn" style="margin-top: 1rem;">Start Analysis</button>
+                    <!-- Add this after the Start Analysis button -->
+
+                </div>
+            </div>
+            <button class="btn btn-danger"  id="stopBtn" style="display:none; margin-top: 10px; color: red;">Stop Analysis</button>
+            <div class="upload-section">
+                <h3>Or Upload Pre-recorded Video</h3>
+                <input type="file" id="videoUpload" accept="video/*" style="margin: 0.5rem 0;">
+                <button id="analyzeUpload" class="btn btn-outline">Analyze Video</button>
+                <video id="uploadedVideo" controls style="display:none; width: 100%; margin-top: 1rem;"></video>
+            </div>
+        </div>
+        
+        <div class="analysis-panel">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">Truth Score</div>
+                    <div class="metric-value" id="truthScore">--</div>
+                    <div class="progress-container">
+                        <div class="progress-fill" id="truthBar"></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Voice Stress</div>
+                    <div class="metric-value" id="voiceScore">--</div>
+                    <div class="progress-container">
+                        <div class="progress-fill" id="voiceBar"></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Micro-expressions</div>
+                    <div class="metric-value" id="microExp">--</div>
+                    <div class="progress-container">
+                        <div class="progress-fill" id="microBar"></div>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Confidence</div>
+                    <div class="metric-value" id="confidence">--</div>
+                    <div class="progress-container">
+                        <div class="progress-fill" id="confBar"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="transcript-panel">
+                <h3>Real-time Transcript</h3>
+                <div class="transcript-content" id="transcript">
+                    Analysis will appear here...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('startBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('startBtn');
+            btn.textContent = 'Starting...';
+            btn.disabled = true;
+             // Show stop button
+            document.getElementById('stopBtn').style.display = 'block';
+            
+
+            try {
+                // Request camera and microphone access
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: true,
+                    audio: true
+                });
+                
+                // Clear placeholder and show video
+                const videoContainer = document.getElementById('videoContainer');
+                videoContainer.innerHTML = '<video id="liveVideo" autoplay playsinline style="width:100%;height:100%;object-fit:cover;"></video>';
+                
+                const videoElement = document.getElementById('liveVideo');
+                videoElement.srcObject = stream;
+                 videoElement.muted = true;
+                
+                // Update metrics with simulated data
+                simulateAnalysis();
+                
+            } catch (error) {
+                alert('Error accessing media devices: ' + error.message);
+                btn.textContent = 'Start Analysis';
+                btn.disabled = false;
+            }
+        });
+        // Global variable to store the stream
+let mediaStream = null;
+
+// Update the startBtn event listener
+document.getElementById('startBtn').addEventListener('click', async () => {
+    try {
+        // Request camera and microphone access
+        mediaStream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: true
+        });
+
+        // Show camera feed
+        const videoElement = document.createElement('video');
+        videoElement.srcObject = mediaStream;
+        videoElement.autoplay = true;
+        videoElement.style.width = '100%';
+        videoElement.muted = true; // Mute audio to prevent echo
+        
+        document.querySelector('.video-panel > div').replaceWith(videoElement);
+
+        // Show stop button, hide start button
+        document.getElementById('startBtn').style.display = 'none';
+        document.getElementById('stopBtn').style.display = 'block';
+
+        // Start analysis
+        startAnalysis(mediaStream);
+
+    } catch (error) {
+        alert('Error accessing media devices: ' + error.message);
+    }
+});
+
+// Add this new event listener for the stop button
+document.getElementById('stopBtn').addEventListener('click', () => {
+    if (mediaStream) {
+        // Stop all tracks
+        mediaStream.getTracks().forEach(track => track.stop());
+        mediaStream = null;
+    }
+    
+    // Reset UI
+    document.querySelector('.video-panel > div').innerHTML = `
+        <div style="text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🎥</div>
+            <p>Camera feed will appear here</p>
+            <button class="btn btn-primary" id="startBtn">Start Analysis</button>
+        </div>
+    `;
+    
+    // Reattach event listener to the new start button
+    document.getElementById('startBtn').addEventListener('click', async () => {
+        // Same code as original startBtn event listener
+    });
+    
+    // Hide stop button
+    document.getElementById('stopBtn').style.display = 'none';
+});
+        document.getElementById('analyzeUpload').addEventListener('click', () => {
+            const file = document.getElementById('videoUpload').files[0];
+            if (file) {
+                const videoUrl = URL.createObjectURL(file);
+                const videoElement = document.getElementById('uploadedVideo');
+                videoElement.src = videoUrl;
+                videoElement.style.display = 'block';
+                
+                // Start analysis of uploaded video
+                simulateAnalysis();
+            } else {
+                alert('Please select a video file first');
+            }
+        });
+        
+        function simulateAnalysis() {
+            // Simulate analysis progress
+            const metrics = {
+                truthScore: Math.floor(Math.random() * 40) + 60,
+                voiceScore: Math.floor(Math.random() * 40) + 30,
+                microExp: Math.floor(Math.random() * 15),
+                confidence: Math.floor(Math.random() * 40) + 60
+            };
+            
+            // Update UI
+            document.getElementById('truthScore').textContent = metrics.truthScore;
+            document.getElementById('truthBar').style.width = metrics.truthScore + '%';
+            
+            document.getElementById('voiceScore').textContent = metrics.voiceScore;
+            document.getElementById('voiceBar').style.width = metrics.voiceScore + '%';
+            
+            document.getElementById('microExp').textContent = metrics.microExp + '/min';
+            document.getElementById('microBar').style.width = Math.min(metrics.microExp * 6, 100) + '%';
+            
+            document.getElementById('confidence').textContent = metrics.confidence + '%';
+            document.getElementById('confBar').style.width = metrics.confidence + '%';
+            
+            // Simulate transcript
+            const transcript = "This is a sample transcript of the analyzed content. PolyView is detecting micro-expressions and voice stress patterns in real-time.";
+            document.getElementById('transcript').textContent = transcript;
+        }
+    </script>
+</body>
+</html>
