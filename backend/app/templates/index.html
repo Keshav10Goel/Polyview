@@ -887,10 +887,10 @@ document.getElementById('startBtn').addEventListener('click', async () => {
         
         <div class="hero-buttons">
             <a href="permission.html" class="btn btn-primary" style="padding: 1rem 2.2rem;">Start Free Analysis</a>
-            <button class="btn btn-outline" style="padding: 1rem 2.2rem;">Watch Demo</button>
+            <button class="btn btn-outline" style="padding: 1rem 2.2rem;" onclick="redirectToPermission()">Watch Demo</button>
         </div>
         
-        <div class="hero-image">
+        <div class="hero-image" onclick="redirectToDashboard()">
             <div class="hero-image-content">
                 <h2>Live Truth Analysis Dashboard</h2>
                 <div class="dashboard-mock">
@@ -944,4 +944,11 @@ document.getElementById('startBtn').addEventListener('click', async () => {
         <p>© 2024 PolyView Technologies. All rights reserved. Privacy-first truth detection.</p>
     </footer>
 </body>
+    <script>
+        function redirectToDashboard() {
+            window.location.href = 'dashboard.html';
+        }
+        function redirectToPermission() {
+            window.location.href = 'permission.html';
+</script>
 </html>
